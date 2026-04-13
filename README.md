@@ -187,4 +187,3 @@ src/
 2. **Zod** — runtime-валидация DTO с автогенерацией TypeScript типов
 3. **Тесты** — Vitest для store/actions, Vue Test Utils для компонентов
 4. **Code splitting** — разделение чанков Vuetify для уменьшения размера bundle (сейчас >500KB)
-5. **Фильтрация по статусу** — UI для фильтра уже есть в store, осталось добавить в таблицу
