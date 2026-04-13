@@ -8,10 +8,13 @@
 import type { ApplicantStatusType } from '../types';
 import { getStatusColor, getStatusLabel } from '../utils';
 
-withDefaults(defineProps<{
-  status: ApplicantStatusType
-  size?: 'small' | 'default' | 'large'
-}>(), {
-  size: 'small',
-});
+withDefaults(
+  defineProps<{
+    status: ApplicantStatusType;
+    size?: 'small' | 'default' | 'large';
+  }>(),
+  {
+    size: 'small',
+  },
+);
 </script>

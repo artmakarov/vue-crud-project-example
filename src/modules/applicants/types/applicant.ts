@@ -1,4 +1,4 @@
-export type ApplicantStatusType = 'new' | 'in_work' | 'done'
+export type ApplicantStatusType = 'new' | 'in_work' | 'done';
 
 export interface IApplicant {
   id: number;
@@ -9,7 +9,10 @@ export interface IApplicant {
   updatedAt?: string;
 }
 
-export type ApplicantFormDataType = Pick<IApplicant, 'fullName' | 'phone' | 'status'>
+export type ApplicantFormDataType = Pick<
+  IApplicant,
+  'fullName' | 'phone' | 'status'
+>;
 
 export interface IFilters {
   status: ApplicantStatusType | null;

@@ -1,2 +1,2 @@
-export * from './useApplicants'
-export * from './useRealtimeMock'
+export * from './useApplicants';
+export * from './useRealtimeMock';

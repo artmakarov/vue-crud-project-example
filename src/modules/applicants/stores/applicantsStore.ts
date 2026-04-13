@@ -9,7 +9,7 @@ import {
   updateApplicant,
 } from '../api';
 
-export type StoreStatusType = 'idle' | 'loading' | 'success' | 'error'
+export type StoreStatusType = 'idle' | 'loading' | 'success' | 'error';
 
 /**
  * Хранилище данных кандидатов (только данные + CRUD-операции)
@@ -53,7 +53,8 @@ export const useApplicantsStore = defineStore('applicants', () => {
       status.value = 'success';
     } catch (e) {
       status.value = 'error';
-      error.value = e instanceof Error ? e.message : 'Ошибка загрузки кандидатов';
+      error.value =
+        e instanceof Error ? e.message : 'Ошибка загрузки кандидатов';
 
       throw e;
     }
@@ -74,7 +75,8 @@ export const useApplicantsStore = defineStore('applicants', () => {
       return created;
     } catch (e) {
       status.value = 'error';
-      error.value = e instanceof Error ? e.message : 'Ошибка создания кандидата';
+      error.value =
+        e instanceof Error ? e.message : 'Ошибка создания кандидата';
 
       throw e;
     }
@@ -83,7 +85,10 @@ export const useApplicantsStore = defineStore('applicants', () => {
   /**
    * Обновить кандидата
    */
-  async function update(id: IApplicant['id'], data: Partial<ApplicantFormDataType>): Promise<IApplicant> {
+  async function update(
+    id: IApplicant['id'],
+    data: Partial<ApplicantFormDataType>,
+  ): Promise<IApplicant> {
     status.value = 'loading';
     error.value = null;
 
@@ -96,7 +101,8 @@ export const useApplicantsStore = defineStore('applicants', () => {
       return updated;
     } catch (e) {
       status.value = 'error';
-      error.value = e instanceof Error ? e.message : 'Ошибка обновления кандидата';
+      error.value =
+        e instanceof Error ? e.message : 'Ошибка обновления кандидата';
 
       throw e;
     }
@@ -115,14 +121,18 @@ export const useApplicantsStore = defineStore('applicants', () => {
       status.value = 'success';
     } catch (e) {
       status.value = 'error';
-      error.value = e instanceof Error ? e.message : 'Ошибка удаления кандидата';
+      error.value =
+        e instanceof Error ? e.message : 'Ошибка удаления кандидата';
 
       throw e;
     }
   }
 
   /** Для имитации "live update" — заменяет весь объект для триггера реактивности */
-  function updateApplicantInPlace(id: IApplicant['id'], data: Partial<Omit<IApplicant, 'id' | 'createdAt'>>): void {
+  function updateApplicantInPlace(
+    id: IApplicant['id'],
+    data: Partial<Omit<IApplicant, 'id' | 'createdAt'>>,
+  ): void {
     const existing = entities.value[id];
 
     if (!existing) return;

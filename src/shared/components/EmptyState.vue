@@ -1,9 +1,9 @@
 <template>
   <div class="text-center pa-8">
     <v-icon
-        :icon="icon || 'mdi-database-off'"
-        color="grey-lighten-1"
-        size="x-large"
+      :icon="icon || 'mdi-database-off'"
+      color="grey-lighten-1"
+      size="x-large"
     />
 
     <p class="text-h6 mt-4">
@@ -15,10 +15,10 @@
     </p>
 
     <v-btn
-        v-if="actionText"
-        color="primary"
-        variant="outlined"
-        @click="$emit('action')"
+      v-if="actionText"
+      color="primary"
+      variant="outlined"
+      @click="$emit('action')"
     >
       <v-icon start>
         {{ actionIcon || 'mdi-plus' }}
@@ -31,14 +31,14 @@
 
 <script setup lang="ts">
 defineProps<{
-  icon?: string
-  title: string
-  subtitle?: string
-  actionText?: string
-  actionIcon?: string
+  icon?: string;
+  title: string;
+  subtitle?: string;
+  actionText?: string;
+  actionIcon?: string;
 }>();
 
 defineEmits<{
-  action: []
+  action: [];
 }>();
 </script>

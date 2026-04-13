@@ -1,1 +1,1 @@
-export * from './statusLabels'
+export * from './statusLabels';

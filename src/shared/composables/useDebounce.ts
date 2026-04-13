@@ -1,6 +1,6 @@
 import { onUnmounted, ref, type Ref, watch } from 'vue';
 
-export function useDebounce<T>(initialValue: T, delayMs: number = 300) {
+export function useDebounce<T>(initialValue: T, delayMs = 300) {
   const value = ref<T>(initialValue) as Ref<T>;
   const debouncedValue = ref<T>(initialValue) as Ref<T>;
   let timerId: ReturnType<typeof setTimeout> | null = null;

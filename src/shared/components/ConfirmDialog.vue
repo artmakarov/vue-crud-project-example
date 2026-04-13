@@ -10,22 +10,22 @@
       </v-card-text>
 
       <v-card-actions class="pt-0 pb-5 px-6">
-        <v-spacer/>
+        <v-spacer />
 
         <v-btn
-            color="grey"
-            variant="text"
-            :disabled="loading"
-            @click="onCancel"
+          color="grey"
+          variant="text"
+          :disabled="loading"
+          @click="onCancel"
         >
           {{ cancelText }}
         </v-btn>
 
         <v-btn
-            :color="confirmColor"
-            variant="flat"
-            :loading="loading"
-            @click="onConfirm"
+          :color="confirmColor"
+          variant="flat"
+          :loading="loading"
+          @click="onConfirm"
         >
           {{ confirmText }}
         </v-btn>
@@ -37,25 +37,28 @@
 <script setup lang="ts">
 import { computed } from 'vue';
 
-const props = withDefaults(defineProps<{
-  modelValue: boolean
-  title?: string
-  message: string
-  confirmText?: string
-  cancelText?: string
-  confirmColor?: string
-  loading?: boolean
-}>(), {
-  title: 'Подтверждение',
-  confirmText: 'Подтвердить',
-  cancelText: 'Отмена',
-  confirmColor: 'error',
-});
+const props = withDefaults(
+  defineProps<{
+    modelValue: boolean;
+    title?: string;
+    message: string;
+    confirmText?: string;
+    cancelText?: string;
+    confirmColor?: string;
+    loading?: boolean;
+  }>(),
+  {
+    title: 'Подтверждение',
+    confirmText: 'Подтвердить',
+    cancelText: 'Отмена',
+    confirmColor: 'error',
+  },
+);
 
 const emit = defineEmits<{
-  'update:modelValue': [value: boolean]
-  confirm: []
-  cancel: []
+  'update:modelValue': [value: boolean];
+  confirm: [];
+  cancel: [];
 }>();
 
 const show = computed<boolean>({

@@ -1,30 +1,30 @@
 <template>
   <ApplicantTable
-      v-model:search-text="searchInput"
-      :items="list"
-      :items-length="total"
-      :loading="isLoading"
-      :items-per-page="pagination.itemsPerPage"
-      :page="pagination.page"
-      :sort-by="sortBy"
-      @create="onCreate"
-      @edit="onEdit"
-      @delete="onDelete"
-      @update:options="onOptionsChange"
+    v-model:search-text="searchInput"
+    :items="list"
+    :items-length="total"
+    :loading="isLoading"
+    :items-per-page="pagination.itemsPerPage"
+    :page="pagination.page"
+    :sort-by="sortBy"
+    @create="onCreate"
+    @edit="onEdit"
+    @delete="onDelete"
+    @update:options="onOptionsChange"
   />
 
   <ApplicantFormDialog
-      v-model="showFormDialog"
-      :applicant="selectedApplicant"
-      @save="onSave"
+    v-model="showFormDialog"
+    :applicant="selectedApplicant"
+    @save="onSave"
   />
 
   <ConfirmDialog
-      v-model="showDeleteDialog"
-      title="Удаление кандидата"
-      :message="`Вы уверены, что хотите удалить «${selectedApplicant?.fullName}»?`"
-      confirm-text="Удалить"
-      @confirm="onDeleteConfirm"
+    v-model="showDeleteDialog"
+    title="Удаление кандидата"
+    :message="`Вы уверены, что хотите удалить «${selectedApplicant?.fullName}»?`"
+    confirm-text="Удалить"
+    @confirm="onDeleteConfirm"
   />
 </template>
 
@@ -56,16 +56,19 @@ const {
   handlePageChange,
 } = useApplicants();
 
-const { value: searchInput, debouncedValue: searchQuery } = useDebounce<string>('', 300);
+const { value: searchInput, debouncedValue: searchQuery } = useDebounce<string>(
+  '',
+  300,
+);
 
 const showFormDialog = ref(false);
 const showDeleteDialog = ref(false);
 const selectedApplicant = ref<IApplicant | null>(null);
 
 function onOptionsChange(options: {
-  page: number
-  itemsPerPage: number
-  sortBy: ISortOption<IApplicant>[]
+  page: number;
+  itemsPerPage: number;
+  sortBy: ISortOption<IApplicant>[];
 }): void {
   handleSortChange(options.sortBy);
   handleItemsPerPageChange(options.itemsPerPage);

@@ -1,7 +1,7 @@
 import { defineStore } from 'pinia';
 import { ref } from 'vue';
 
-export type SnackbarColor = 'success' | 'error' | 'info' | 'warning'
+export type SnackbarColor = 'success' | 'error' | 'info' | 'warning';
 
 export const useSnackbarStore = defineStore('snackbar', () => {
   const text = ref<string>('');
@@ -10,7 +10,10 @@ export const useSnackbarStore = defineStore('snackbar', () => {
 
   let timerId: ReturnType<typeof setTimeout> | null = null;
 
-  function showMessage(message: string, colorType: SnackbarColor = 'success'): void {
+  function showMessage(
+    message: string,
+    colorType: SnackbarColor = 'success',
+  ): void {
     if (timerId) {
       clearTimeout(timerId);
     }

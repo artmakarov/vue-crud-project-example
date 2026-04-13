@@ -1,7 +1,7 @@
 import { defineStore } from 'pinia';
 import { computed, ref } from 'vue';
 
-export type ThemeType = 'light' | 'dark'
+export type ThemeType = 'light' | 'dark';
 
 export const useGlobalStore = defineStore('global', () => {
   const theme = ref<ThemeType>('light');

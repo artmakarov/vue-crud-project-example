@@ -1,1 +1,1 @@
-export * from './applicants'
+export * from './applicants';

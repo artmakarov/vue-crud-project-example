@@ -33,10 +33,9 @@ export function useRealtimeMock() {
 
       const randomApplicant = randomFrom(applicants);
 
-      store.updateApplicantInPlace(
-        randomApplicant.id,
-        { status: randomFrom(statuses) },
-      );
+      store.updateApplicantInPlace(randomApplicant.id, {
+        status: randomFrom(statuses),
+      });
     }, INTERVAL_MS);
   });
 

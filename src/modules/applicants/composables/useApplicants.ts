@@ -14,21 +14,17 @@ import { useApplicantsStore } from '../stores';
 export function useApplicants() {
   const snackbar = useSnackbarStore();
   const store = useApplicantsStore();
-  const {
-    list,
-    total,
-    isLoading,
-    hasError,
-    error,
-  } = storeToRefs(store);
+  const { list, total, isLoading, hasError, error } = storeToRefs(store);
 
   const pagination = ref<IPaginationParams>({ page: 1, itemsPerPage: 10 });
   const search = ref<string>('');
   const filters = ref<IFilters>({ status: null });
-  const sortBy = ref<ISortOption<IApplicant>[]>([{
-    key: 'createdAt',
-    order: 'desc',
-  }]);
+  const sortBy = ref<ISortOption<IApplicant>[]>([
+    {
+      key: 'createdAt',
+      order: 'desc',
+    },
+  ]);
 
   function getSearchCriteria(): IApplicantsSearchCriteria {
     return {
@@ -51,7 +47,9 @@ export function useApplicants() {
     }
   }
 
-  async function handleCreate(data: ApplicantFormDataType): Promise<IApplicant> {
+  async function handleCreate(
+    data: ApplicantFormDataType,
+  ): Promise<IApplicant> {
     try {
       const created = await store.create(data);
       snackbar.showMessage('Кандидат успешно создан', 'success');
@@ -63,7 +61,10 @@ export function useApplicants() {
     }
   }
 
-  async function handleUpdate(id: IApplicant['id'], data: ApplicantFormDataType): Promise<IApplicant> {
+  async function handleUpdate(
+    id: IApplicant['id'],
+    data: ApplicantFormDataType,
+  ): Promise<IApplicant> {
     try {
       const updated = await store.update(id, data);
       snackbar.showMessage('Кандидат успешно обновлен', 'success');
@@ -112,11 +113,9 @@ export function useApplicants() {
   }
 
   // Автоматическая перезагрузка при изменении параметров
-  watch(
-    [pagination, search, filters, sortBy],
-    () => fetchList(),
-    { deep: true },
-  );
+  watch([pagination, search, filters, sortBy], () => fetchList(), {
+    deep: true,
+  });
 
   onMounted(() => fetchList());
 

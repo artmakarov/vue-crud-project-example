@@ -1,1 +1,1 @@
-export * from './applicants.ts'
+export * from './applicants';

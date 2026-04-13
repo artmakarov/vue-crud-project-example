@@ -1,0 +1,7 @@
+# Ignore build artifacts
+dist/
+dist-ssr/
+coverage/
+node_modules/
+public/
+*.log

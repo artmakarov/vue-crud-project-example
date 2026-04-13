@@ -22,14 +22,17 @@ export const applicantsHandlers: HttpHandler[] = [
     const search = url.searchParams.get('search') || '';
     const status = url.searchParams.get('status') as ApplicantStatusType | null;
     const sortBy = url.searchParams.get('sortBy') || 'createdAt';
-    const sortOrder = (url.searchParams.get('sortOrder') as 'asc' | 'desc') || 'asc';
+    const sortOrder =
+      (url.searchParams.get('sortOrder') as 'asc' | 'desc') || 'asc';
 
     let items = ApplicantsDB.getAll();
 
     if (search) {
       const query = search.toLowerCase();
 
-      items = items.filter((item) => item.fullName.toLowerCase().includes(query));
+      items = items.filter((item) =>
+        item.fullName.toLowerCase().includes(query),
+      );
     }
 
     if (status) {
@@ -58,14 +61,17 @@ export const applicantsHandlers: HttpHandler[] = [
   }),
 
   http.get<{
-    id: string
+    id: string;
   }>(`${API_BASE_URL}/applicants/:id`, async ({ params }) => {
     await delay(DELAY.GET_BY_ID);
 
     const applicant = ApplicantsDB.getById(Number(params.id));
 
     if (!applicant) {
-      return HttpResponse.json({ error: 'Applicant not found' }, { status: 404 });
+      return HttpResponse.json(
+        { error: 'Applicant not found' },
+        { status: 404 },
+      );
     }
 
     return HttpResponse.json<IApplicant>(applicant);
@@ -74,7 +80,7 @@ export const applicantsHandlers: HttpHandler[] = [
   http.post(`${API_BASE_URL}/applicants`, async ({ request }) => {
     await delay(DELAY.CREATE);
 
-    const body = await request.json() as Record<string, unknown>;
+    const body = (await request.json()) as Record<string, unknown>;
 
     if (!body.fullName) {
       return HttpResponse.json(
@@ -93,11 +99,11 @@ export const applicantsHandlers: HttpHandler[] = [
   }),
 
   http.put<{
-    id: string
+    id: string;
   }>(`${API_BASE_URL}/applicants/:id`, async ({ params, request }) => {
     await delay(DELAY.UPDATE);
 
-    const body = await request.json() as Record<string, unknown>;
+    const body = (await request.json()) as Record<string, unknown>;
     const updated = ApplicantsDB.update(Number(params.id), {
       fullName: body.fullName as string | undefined,
       phone: body.phone as string | undefined,
@@ -105,21 +111,27 @@ export const applicantsHandlers: HttpHandler[] = [
     });
 
     if (!updated) {
-      return HttpResponse.json({ error: 'Applicant not found' }, { status: 404 });
+      return HttpResponse.json(
+        { error: 'Applicant not found' },
+        { status: 404 },
+      );
     }
 
     return HttpResponse.json<IApplicant>(updated);
   }),
 
   http.delete<{
-    id: string
+    id: string;
   }>(`${API_BASE_URL}/applicants/:id`, async ({ params }) => {
     await delay(DELAY.REMOVE);
 
     const deleted = ApplicantsDB.remove(Number(params.id));
 
     if (!deleted) {
-      return HttpResponse.json({ error: 'Applicant not found' }, { status: 404 });
+      return HttpResponse.json(
+        { error: 'Applicant not found' },
+        { status: 404 },
+      );
     }
 
     return new HttpResponse(null, { status: 204 });
