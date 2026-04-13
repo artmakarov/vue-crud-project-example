@@ -1,7 +1,7 @@
 <template>
   <div>
     <v-row class="mb-4">
-      <v-col cols="12" md="8">
+      <v-col cols="12" md="6">
         <v-text-field
           v-model="search"
           label="Поиск по ФИО"
@@ -13,7 +13,21 @@
         />
       </v-col>
 
-      <v-col cols="12" md="4" class="d-flex justify-end">
+      <v-col cols="12" md="4">
+        <v-select
+          v-model="statusFilter"
+          :items="STATUS_OPTIONS"
+          label="Фильтр по статусу"
+          item-title="title"
+          item-value="value"
+          variant="outlined"
+          density="compact"
+          clearable
+          hide-details
+        />
+      </v-col>
+
+      <v-col cols="12" md="2" class="d-flex justify-end">
         <v-btn
           color="primary"
           prepend-icon="mdi-plus"
@@ -75,9 +89,10 @@
 
 <script setup lang="ts">
 import type { ISortOption } from '@/shared';
-import type { IApplicant } from '../types';
+import type { ApplicantStatusType, IApplicant } from '../types';
 import { computed } from 'vue';
 import { EmptyState } from '@/shared';
+import { STATUS_OPTIONS } from '../constants';
 import ApplicantStatusChip from './ApplicantStatusChip.vue';
 
 const props = defineProps<{
@@ -87,6 +102,7 @@ const props = defineProps<{
   page?: number;
   sortBy?: ISortOption<IApplicant>[];
   searchText?: string;
+  statusFilter?: ApplicantStatusType | null;
   loading?: boolean;
 }>();
 
@@ -95,6 +111,7 @@ const emit = defineEmits<{
   edit: [applicant: IApplicant];
   delete: [applicant: IApplicant];
   'update:searchText': [text: string];
+  'update:statusFilter': [status: ApplicantStatusType | null];
   'update:options': [
     options: {
       page: number;
@@ -121,5 +138,10 @@ const headers = [
 const search = computed<string>({
   get: () => props.searchText || '',
   set: (value) => emit('update:searchText', value),
+});
+
+const statusFilter = computed<ApplicantStatusType | null>({
+  get: () => props.statusFilter || null,
+  set: (value) => emit('update:statusFilter', value),
 });
 </script>

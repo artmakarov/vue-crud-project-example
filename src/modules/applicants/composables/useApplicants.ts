@@ -2,6 +2,7 @@ import type { ISortOption } from '@/shared';
 import type { IApplicantsSearchCriteria } from '../api';
 import type {
   ApplicantFormDataType,
+  ApplicantStatusType,
   IApplicant,
   IFilters,
   IPaginationParams,
@@ -105,6 +106,11 @@ export function useApplicants() {
     pagination.value.page = page;
   }
 
+  function handleStatusFilterChange(status: ApplicantStatusType | null): void {
+    filters.value.status = status;
+    pagination.value.page = 1;
+  }
+
   function resetFilters(): void {
     search.value = '';
     filters.value = { status: null };
@@ -142,6 +148,7 @@ export function useApplicants() {
     handleSortChange,
     handleItemsPerPageChange,
     handlePageChange,
+    handleStatusFilterChange,
     resetFilters,
   };
 }

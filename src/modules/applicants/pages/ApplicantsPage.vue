@@ -1,6 +1,7 @@
 <template>
   <ApplicantTable
     v-model:search-text="searchInput"
+    v-model:status-filter="filters.status"
     :items="list"
     :items-length="total"
     :loading="isLoading"
@@ -11,6 +12,7 @@
     @edit="onEdit"
     @delete="onDelete"
     @update:options="onOptionsChange"
+    @update:status-filter="handleStatusFilterChange"
   />
 
   <ApplicantFormDialog
@@ -47,6 +49,7 @@ const {
   isLoading,
   pagination,
   sortBy,
+  filters,
   handleCreate,
   handleDelete,
   handleUpdate,
@@ -54,12 +57,11 @@ const {
   handleSortChange,
   handleItemsPerPageChange,
   handlePageChange,
+  handleStatusFilterChange,
 } = useApplicants();
 
-const { value: searchInput, debouncedValue: searchQuery } = useDebounce<string>(
-  '',
-  300,
-);
+const { value: searchInput, debouncedValue: debouncedSearchQuery } =
+  useDebounce<string>('', 300);
 
 const showFormDialog = ref(false);
 const showDeleteDialog = ref(false);
@@ -109,7 +111,5 @@ async function onDeleteConfirm(): Promise<void> {
   showDeleteDialog.value = false;
 }
 
-watch(searchQuery, (newQuery) => {
-  handleSearch(newQuery);
-});
+watch(debouncedSearchQuery, (newQuery) => handleSearch(newQuery));
 </script>
