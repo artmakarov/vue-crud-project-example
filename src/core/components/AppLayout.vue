@@ -16,11 +16,21 @@
     </v-app-bar>
 
     <v-navigation-drawer v-model="sidebarOpen">
-      <v-list>
+      <div
+        v-if="isLoadingModules"
+        class="d-flex align-center justify-center text-center py-5"
+      >
+        <v-progress-circular indeterminate size="20" />
+        <span class="ms-2">Загрузка...</span>
+      </div>
+
+      <v-list v-else>
         <v-list-item
-          :to="{ name: 'Applicants' }"
-          title="Кандидаты"
-          prepend-icon="mdi-account-group"
+          v-for="item in navItems"
+          :key="item.title"
+          :to="item.route"
+          :title="item.title"
+          :prepend-icon="item.icon"
         />
       </v-list>
     </v-navigation-drawer>
@@ -37,10 +47,13 @@
 
 <script setup lang="ts">
 import { storeToRefs } from 'pinia';
-import { useGlobalStore } from '../stores';
+import { useGlobalStore, useModulesStore } from '../stores';
 import AppSnackbar from './AppSnackbar.vue';
 
 const globalStore = useGlobalStore();
 const { isDark, sidebarOpen } = storeToRefs(globalStore);
 const { toggleSidebar, setTheme } = globalStore;
+
+const modulesStore = useModulesStore();
+const { isLoadingModules, navItems } = storeToRefs(modulesStore);
 </script>

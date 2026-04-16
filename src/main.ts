@@ -1,23 +1,36 @@
-import { createApp } from 'vue';
+import { App, useModulesStore } from '@/core';
 import { createPinia } from 'pinia';
-import { App } from '@/core';
+import { createApp } from 'vue';
 import { vuetify } from './plugins';
-import { router } from './router';
+import { registerRoutes, router } from './router';
 
 async function enableMocking(): Promise<void> {
-  if (import.meta.env.DEV) {
-    const { worker } = await import('./mocks/browser');
-
-    await worker.start({ onUnhandledRequest: 'bypass' });
-  }
+  const { worker } = await import('./mocks/browser');
+  await worker.start({ onUnhandledRequest: 'bypass' });
 }
 
-enableMocking().then(() => {
-  const app = createApp(App);
+async function bootstrap(): Promise<void> {
+  if (import.meta.env.DEV) {
+    await enableMocking();
+  }
 
-  app.use(createPinia());
+  const app = createApp(App);
+  const pinia = createPinia();
+
+  app.use(pinia);
+
+  const modulesStore = useModulesStore();
+
+  await modulesStore.initModules(app);
+
+  registerRoutes(modulesStore.allRoutes, {
+    defaultRoute: modulesStore.defaultRoute,
+  });
+
   app.use(router);
   app.use(vuetify);
 
   app.mount('#app');
-});
+}
+
+bootstrap().catch(console.error);
