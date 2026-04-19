@@ -1,11 +1,12 @@
-export function formatDate(isoString: string): string {
-  const date = new Date(isoString);
+import { i18n, SupportedLocale } from '@/plugins';
+import { MaybeRefOrGetter, toValue } from 'vue';
 
-  return date.toLocaleDateString('ru-RU', {
-    day: '2-digit',
-    month: '2-digit',
-    year: 'numeric',
-    hour: '2-digit',
-    minute: '2-digit',
-  });
+export function formatDate(
+  date: string | Date,
+  locale?: MaybeRefOrGetter<string | SupportedLocale>,
+): string {
+  const dateObject = typeof date === 'string' ? new Date(date) : date;
+  const resolvedLocale = locale ? toValue(locale) : i18n.global.locale.value;
+
+  return dateObject.toLocaleDateString(resolvedLocale);
 }

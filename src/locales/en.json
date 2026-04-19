@@ -1,0 +1,36 @@
+{
+  "common": {
+    "loading": "Loading...",
+    "cancel": "Cancel",
+    "save": "Save",
+    "delete": "Delete",
+    "edit": "Edit",
+    "add": "Add",
+    "confirm": "Confirm",
+    "backToHome": "Back to Home",
+    "confirmation": "Confirmation",
+    "actions": "Actions"
+  },
+  "validation": {
+    "required": "Required field",
+    "minLength": "Minimum {n} characters",
+    "maxLength": "Maximum {n} characters",
+    "phone": "Invalid phone number"
+  },
+  "layout": {
+    "title": "Reference books",
+    "themeToggle": "Toggle theme",
+    "language": "Language"
+  },
+  "pages": {
+    "notFound": {
+      "title": "Page not found",
+      "description": "Page “{path}” does not exist"
+    },
+    "forbidden": {
+      "title": "Page is not available",
+      "description": "You do not have access to page “{path}”"
+    }
+  },
+  "components": {}
+}

@@ -1,8 +1,8 @@
 <template>
   <v-empty-state
     headline="404"
-    title="Страница не найдена"
-    :text="`Страница «${$route.fullPath}» не существует`"
+    :title="$t('pages.notFound.title')"
+    :text="$t('pages.notFound.description', { path: $route.fullPath })"
     image="mdi-alert-circle-outline"
   >
     <template #actions>
@@ -12,7 +12,7 @@
         variant="outlined"
         :to="{ name: 'Home' }"
       >
-        На главную
+        {{ $t('common.backToHome') }}
       </v-btn>
     </template>
   </v-empty-state>

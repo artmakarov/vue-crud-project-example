@@ -4,7 +4,7 @@ import * as directives from 'vuetify/directives';
 import * as labsComponents from 'vuetify/labs/components';
 import 'vuetify/styles';
 
-export const vuetify = createVuetify({
+export const vuetifyCustomPlugin = createVuetify({
   directives,
   components: {
     ...components,

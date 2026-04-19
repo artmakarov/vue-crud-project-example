@@ -1,0 +1,40 @@
+{
+  "applicants": {
+    "pageTitle": "Applicants Catalog",
+    "navTitle": "Applicants",
+    "statuses": {
+      "new": "New",
+      "in_work": "In progress",
+      "done": "Completed"
+    },
+    "table": {
+      "emptyTitle": "Applicants list is empty",
+      "emptySubtitle": "Add the first record",
+      "headers": {
+        "fullName": "Full name",
+        "phone": "Phone",
+        "status": "Status",
+        "createdAt": "Created at"
+      },
+      "labels": {
+        "search": "Search by full name",
+        "statusFilter": "Filter by status"
+      }
+    },
+    "dialogs": {
+      "editApplicant": {
+        "newTitle": "New applicant",
+        "editTitle": "Edit applicant",
+        "labels": {
+          "fullName": "Full name",
+          "phone": "Phone",
+          "status": "Status"
+        }
+      },
+      "deleteApplicant": {
+        "title": "Delete applicant",
+        "message": "Are you sure you want to delete “{name}”?"
+      }
+    }
+  }
+}

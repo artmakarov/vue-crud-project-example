@@ -3,6 +3,7 @@ import type {
   RouteRecordRaw,
 } from 'vue-router';
 import type { ILoadedModule, IModule, INavItem } from '../types';
+import { i18n } from '@/plugins';
 import { defineStore } from 'pinia';
 import { type App, computed, ref } from 'vue';
 
@@ -16,8 +17,15 @@ export const useModulesStore = defineStore('modules', () => {
   const isModulesLoaded = ref<boolean>(false);
   const isLoadingModules = ref<boolean>(false);
 
+  const { t, te } = i18n.global;
+
   const navItems = computed<INavItem[]>(() =>
-    loadedModules.value.flatMap((module) => module.navItems),
+    loadedModules.value.flatMap((module) =>
+      module.navItems.map((navItem) => ({
+        ...navItem,
+        title: te(navItem.title) ? t(navItem.title) : navItem.title,
+      })),
+    ),
   );
 
   const allRoutes = computed<RouteRecordRaw[]>(() =>

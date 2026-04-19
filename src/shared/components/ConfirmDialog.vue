@@ -2,7 +2,7 @@
   <v-dialog v-model="show" max-width="400" persistent>
     <v-card>
       <v-card-title>
-        {{ title }}
+        {{ resolvedTitle }}
       </v-card-title>
 
       <v-card-text>
@@ -18,7 +18,7 @@
           :disabled="loading"
           @click="onCancel"
         >
-          {{ cancelText }}
+          {{ resolvedCancelText }}
         </v-btn>
 
         <v-btn
@@ -27,7 +27,7 @@
           :loading="loading"
           @click="onConfirm"
         >
-          {{ confirmText }}
+          {{ resolvedConfirmText }}
         </v-btn>
       </v-card-actions>
     </v-card>
@@ -36,6 +36,7 @@
 
 <script setup lang="ts">
 import { computed } from 'vue';
+import { useI18n } from 'vue-i18n';
 
 const props = withDefaults(
   defineProps<{
@@ -48,9 +49,9 @@ const props = withDefaults(
     loading?: boolean;
   }>(),
   {
-    title: 'Подтверждение',
-    confirmText: 'Подтвердить',
-    cancelText: 'Отмена',
+    title: '',
+    confirmText: '',
+    cancelText: '',
     confirmColor: 'error',
   },
 );
@@ -61,10 +62,20 @@ const emit = defineEmits<{
   cancel: [];
 }>();
 
+const { t } = useI18n();
+
 const show = computed<boolean>({
   get: () => props.modelValue,
   set: (value) => emit('update:modelValue', value),
 });
+
+const resolvedTitle = computed(() => props.title || t('common.confirmation'));
+const resolvedCancelText = computed(
+  () => props.cancelText || t('common.cancel'),
+);
+const resolvedConfirmText = computed(
+  () => props.confirmText || t('common.confirm'),
+);
 
 function onConfirm() {
   emit('confirm');

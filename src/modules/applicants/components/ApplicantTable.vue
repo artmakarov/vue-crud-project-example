@@ -4,7 +4,7 @@
       <v-col cols="12" md="6">
         <v-text-field
           v-model="search"
-          label="Поиск по ФИО"
+          :label="$t('applicants.table.labels.search')"
           prepend-inner-icon="mdi-magnify"
           variant="outlined"
           density="compact"
@@ -16,8 +16,8 @@
       <v-col cols="12" md="4">
         <v-select
           v-model="statusFilter"
-          :items="STATUS_OPTIONS"
-          label="Фильтр по статусу"
+          :items="statusOptions"
+          :label="$t('applicants.table.labels.statusFilter')"
           item-title="title"
           item-value="value"
           variant="outlined"
@@ -34,7 +34,7 @@
           variant="outlined"
           @click="$emit('create')"
         >
-          Добавить
+          {{ $t('common.add') }}
         </v-btn>
       </v-col>
     </v-row>
@@ -54,7 +54,7 @@
       </template>
 
       <template #[`item.createdAt`]="{ item }">
-        {{ new Date(item.createdAt).toLocaleDateString('ru-RU') }}
+        {{ formatDate(item.createdAt) }}
       </template>
 
       <template #[`item.actions`]="{ item }">
@@ -76,9 +76,9 @@
 
       <template #no-data>
         <empty-state
-          title="Список кандидатов пуст"
-          subtitle="Добавьте первую запись"
-          action-text="Добавить"
+          :title="$t('applicants.table.emptyTitle')"
+          :subtitle="$t('applicants.table.emptySubtitle')"
+          :action-text="$t('common.add')"
           action-icon="mdi-plus"
           @action="$emit('create')"
         />
@@ -88,11 +88,11 @@
 </template>
 
 <script setup lang="ts">
-import type { ISortOption } from '@/shared';
 import type { ApplicantStatusType, IApplicant } from '../types';
+import { EmptyState, formatDate, ISortOption } from '@/shared';
 import { computed } from 'vue';
-import { EmptyState } from '@/shared';
-import { STATUS_OPTIONS } from '../constants';
+import { useI18n } from 'vue-i18n';
+import { useApplicantStatuses } from '../composables';
 import ApplicantStatusChip from './ApplicantStatusChip.vue';
 
 const props = defineProps<{
@@ -121,19 +121,26 @@ const emit = defineEmits<{
   ];
 }>();
 
-const headers = [
-  { title: 'ФИО', key: 'fullName' },
-  { title: 'Телефон', key: 'phone' },
-  { title: 'Статус', key: 'status', width: 140 },
-  { title: 'Дата создания', key: 'createdAt', width: 160 },
+const { t } = useI18n();
+const { statusOptions } = useApplicantStatuses();
+
+const headers = computed(() => [
+  { key: 'fullName', title: t('applicants.table.headers.fullName') },
+  { key: 'phone', title: t('applicants.table.headers.phone') },
+  { key: 'status', title: t('applicants.table.headers.status'), width: 140 },
   {
-    title: 'Действия',
+    key: 'createdAt',
+    title: t('applicants.table.headers.createdAt'),
+    width: 160,
+  },
+  {
     key: 'actions',
+    title: t('common.actions'),
     align: 'end' as const,
     width: 140,
     sortable: false,
   },
-];
+]);
 
 const search = computed<string>({
   get: () => props.searchText || '',

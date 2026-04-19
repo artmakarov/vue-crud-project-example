@@ -1,7 +1,7 @@
 import { App, useModulesStore } from '@/core';
 import { createPinia } from 'pinia';
 import { createApp } from 'vue';
-import { vuetify } from './plugins';
+import { i18nCustomPlugin, vuetifyCustomPlugin } from './plugins';
 import { registerRoutes, router } from './router';
 
 async function enableMocking(): Promise<void> {
@@ -15,9 +15,10 @@ async function bootstrap(): Promise<void> {
   }
 
   const app = createApp(App);
-  const pinia = createPinia();
 
-  app.use(pinia);
+  app.use(createPinia());
+  app.use(i18nCustomPlugin);
+  app.use(vuetifyCustomPlugin);
 
   const modulesStore = useModulesStore();
 
@@ -27,8 +28,8 @@ async function bootstrap(): Promise<void> {
     defaultRoute: modulesStore.defaultRoute,
   });
 
+  // После регистрации маршрутов модулей
   app.use(router);
-  app.use(vuetify);
 
   app.mount('#app');
 }

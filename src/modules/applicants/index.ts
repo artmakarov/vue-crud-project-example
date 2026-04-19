@@ -1,9 +1,10 @@
 import { IModule } from '@/core';
+import en from './locales/en.json';
+import ru from './locales/ru.json';
 
 // Публичный API модуля
 export * from './api';
 export * from './composables';
-export * from './constants';
 export * from './stores';
 export * from './types';
 export * from './utils';
@@ -18,13 +19,12 @@ const applicantsModule: IModule = {
   getNavItems: () => [
     {
       route: { name: 'Applicants' },
-      title: 'Кандидаты',
+      title: 'applicants.navTitle',
       icon: 'mdi-account-group',
     },
   ],
-  install: () => {
-    // Опционально: регистрация плагинов, директив и т.д.
-    console.log('[ApplicantsModule] install() вызван.');
+  install: (app) => {
+    app.$addModuleLocaleMessages({ ru, en });
   },
 };
 

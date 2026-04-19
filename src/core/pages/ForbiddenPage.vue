@@ -1,8 +1,8 @@
 <template>
   <v-empty-state
     headline="403"
-    title="Страница не доступна"
-    :text="`У вас нет доступа к странице «${$route.fullPath}»`"
+    :title="$t('pages.forbidden.title')"
+    :text="$t('pages.forbidden.description', { path: $route.fullPath })"
     image="mdi-alert-circle-outline"
   >
     <template #actions>
@@ -12,7 +12,7 @@
         variant="outlined"
         :to="{ name: 'Home' }"
       >
-        На главную
+        {{ $t('common.backToHome') }}
       </v-btn>
     </template>
   </v-empty-state>

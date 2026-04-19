@@ -23,9 +23,13 @@
 
   <ConfirmDialog
     v-model="showDeleteDialog"
-    title="Удаление кандидата"
-    :message="`Вы уверены, что хотите удалить «${selectedApplicant?.fullName}»?`"
-    confirm-text="Удалить"
+    :title="$t('applicants.dialogs.deleteApplicant.title')"
+    :message="
+      $t('applicants.dialogs.deleteApplicant.message', {
+        name: selectedApplicant?.fullName ?? '',
+      })
+    "
+    :confirm-text="$t('common.delete')"
     @confirm="onDeleteConfirm"
   />
 </template>

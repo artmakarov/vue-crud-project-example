@@ -1,0 +1,36 @@
+{
+  "common": {
+    "loading": "Загрузка...",
+    "cancel": "Отмена",
+    "save": "Сохранить",
+    "delete": "Удалить",
+    "edit": "Редактировать",
+    "add": "Добавить",
+    "confirm": "Подтвердить",
+    "backToHome": "На главную",
+    "confirmation": "Подтверждение",
+    "actions": "Действия"
+  },
+  "validation": {
+    "required": "Обязательное поле",
+    "minLength": "Минимум {n} символов",
+    "maxLength": "Максимум {n} символов",
+    "phone": "Некорректный номер телефона"
+  },
+  "layout": {
+    "title": "Справочники",
+    "themeToggle": "Переключить тему",
+    "language": "Язык"
+  },
+  "pages": {
+    "notFound": {
+      "title": "Страница не найдена",
+      "description": "Страница «{path}» не существует"
+    },
+    "forbidden": {
+      "title": "Страница не доступна",
+      "description": "У вас нет доступа к странице «{path}»"
+    }
+  },
+  "components": {}
+}

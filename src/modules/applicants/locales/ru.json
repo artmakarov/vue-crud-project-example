@@ -1,0 +1,40 @@
+{
+  "applicants": {
+    "pageTitle": "Справочник кандидатов",
+    "navTitle": "Кандидаты",
+    "statuses": {
+      "new": "Новый",
+      "in_work": "В работе",
+      "done": "Завершён"
+    },
+    "table": {
+      "emptyTitle": "Список кандидатов пуст",
+      "emptySubtitle": "Добавьте первую запись",
+      "headers": {
+        "fullName": "ФИО",
+        "phone": "Телефон",
+        "status": "Статус",
+        "createdAt": "Дата создания"
+      },
+      "labels": {
+        "search": "Поиск по ФИО",
+        "statusFilter": "Фильтр по статусу"
+      }
+    },
+    "dialogs": {
+      "editApplicant": {
+        "newTitle": "Новый кандидат",
+        "editTitle": "Редактирование кандидата",
+        "labels": {
+          "fullName": "ФИО",
+          "phone": "Телефон",
+          "status": "Статус"
+        }
+      },
+      "deleteApplicant": {
+        "title": "Удаление кандидата",
+        "message": "Вы уверены, что хотите удалить «{name}»?"
+      }
+    }
+  }
+}

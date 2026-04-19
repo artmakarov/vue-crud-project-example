@@ -1,10 +1,12 @@
+import { ForbiddenPage, NotFoundPage } from '@/core';
+import { i18n } from '@/plugins';
+import { watch } from 'vue';
 import {
   createRouter,
   createWebHistory,
   type RouteLocationAsRelativeGeneric,
   RouteRecordRaw,
 } from 'vue-router';
-import { ForbiddenPage, NotFoundPage } from '@/core';
 
 export const router = createRouter({
   history: createWebHistory(),
@@ -17,13 +19,13 @@ const errorRoutes: RouteRecordRaw[] = [
     path: '/:pathMatch(.*)*',
     name: 'NotFound',
     component: NotFoundPage,
-    meta: { title: 'Страница не найдена' },
+    meta: { title: 'pages.notFound.title' },
   },
   {
     path: '/:pathMatch(.*)*',
     name: 'Forbidden',
     component: ForbiddenPage,
-    meta: { title: 'Страница не доступна' },
+    meta: { title: 'pages.forbidden.title' },
   },
 ];
 
@@ -43,12 +45,19 @@ export function registerRoutes(
   routes.concat(errorRoutes).forEach((route) => router.addRoute(route));
 }
 
-router.beforeEach((to) => {
-  document.title = to.meta.title
-    ? `${to.meta.title} — Справочники`
-    : 'Справочники';
-});
+export function setDocumentTitle(title?: string): void {
+  const { t, te } = i18n.global;
+  const appTitle = t('layout.title');
+  const pageTitle = title && te(title) ? t(title) : title;
 
-router.onError((error) => {
-  console.error('[Router] Ошибка навигации:', error);
+  document.title = pageTitle ? `${pageTitle} — ${appTitle}` : appTitle;
+}
+
+router.onError((error) => console.error('[Router] Ошибка навигации:', error));
+router.beforeEach((to) => setDocumentTitle(to.meta.title));
+
+router.isReady().then(() => {
+  const { locale } = i18n.global;
+
+  watch(locale, () => setDocumentTitle(router.currentRoute.value.meta.title));
 });

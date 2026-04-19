@@ -1,15 +1,13 @@
 <template>
   <v-dialog v-model="show" max-width="600" persistent>
     <v-card>
-      <v-card-title>
-        {{ isEditing ? 'Редактирование кандидата' : 'Новый кандидат' }}
-      </v-card-title>
+      <v-card-title>{{ title }}</v-card-title>
 
       <v-card-text>
         <v-form ref="formRef">
           <v-text-field
             v-model="form.fullName"
-            label="ФИО"
+            :label="$t('applicants.dialogs.editApplicant.labels.fullName')"
             variant="outlined"
             class="mb-4"
             :rules="[validators.required, validators.minLength(3)]"
@@ -17,7 +15,7 @@
 
           <v-mask-input
             v-model="form.phone"
-            label="Телефон"
+            :label="$t('applicants.dialogs.editApplicant.labels.phone')"
             mask="+7 (###) ###-##-##"
             variant="outlined"
             class="mb-4"
@@ -26,8 +24,8 @@
 
           <v-select
             v-model="form.status"
-            label="Статус"
-            :items="STATUS_OPTIONS"
+            :label="$t('applicants.dialogs.editApplicant.labels.status')"
+            :items="statusOptions"
             item-title="title"
             item-value="value"
             variant="outlined"
@@ -37,8 +35,14 @@
 
       <v-card-actions class="pt-0 pb-5 px-6">
         <v-spacer />
-        <v-btn color="grey" variant="text" @click="show = false">Отмена</v-btn>
-        <v-btn color="primary" variant="flat" @click="onSave">Сохранить</v-btn>
+
+        <v-btn color="grey" variant="text" @click="show = false">
+          {{ t('common.cancel') }}
+        </v-btn>
+
+        <v-btn color="primary" variant="flat" @click="onSave">
+          {{ t('common.save') }}
+        </v-btn>
       </v-card-actions>
     </v-card>
   </v-dialog>
@@ -46,9 +50,10 @@
 
 <script setup lang="ts">
 import type { ApplicantFormDataType, IApplicant } from '../types';
-import { computed, ref, watch } from 'vue';
 import { validators } from '@/shared';
-import { STATUS_OPTIONS } from '../constants';
+import { computed, ref, watch } from 'vue';
+import { useI18n } from 'vue-i18n';
+import { useApplicantStatuses } from '../composables';
 
 const props = defineProps<{
   modelValue: boolean;
@@ -60,6 +65,9 @@ const emit = defineEmits<{
   save: [data: ApplicantFormDataType];
 }>();
 
+const { t } = useI18n();
+const { statusOptions } = useApplicantStatuses();
+
 const form = ref<ApplicantFormDataType>({
   fullName: '',
   phone: '',
@@ -68,12 +76,18 @@ const form = ref<ApplicantFormDataType>({
 
 const formRef = ref();
 
+const isEditing = computed<boolean>(() => !!props.applicant);
+
+const title = computed(() =>
+  isEditing.value
+    ? t('applicants.dialogs.editApplicant.editTitle')
+    : t('applicants.dialogs.editApplicant.newTitle'),
+);
+
 const show = computed<boolean>({
   get: () => props.modelValue,
   set: (value) => emit('update:modelValue', value),
 });
-
-const isEditing = computed<boolean>(() => !!props.applicant);
 
 function resetForm() {
   form.value = { fullName: '', phone: '', status: 'new' };
@@ -98,8 +112,6 @@ watch(show, (value) => {
 watch(
   () => props.applicant,
   (applicant) => {
-    console.log('Applicant changed:', applicant);
-
     if (applicant) {
       form.value = {
         fullName: applicant.fullName,
