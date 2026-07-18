@@ -3,7 +3,7 @@ import type {
   RouteRecordRaw,
 } from 'vue-router';
 import type { ILoadedModule, IModule, INavItem } from '../types';
-import { i18n } from '@/plugins';
+import { i18n } from '../plugins';
 import { defineStore } from 'pinia';
 import { type App, computed, ref } from 'vue';
 
@@ -52,7 +52,12 @@ export const useModulesStore = defineStore('modules', () => {
           throw new Error(`Модуль из "${path}" не имеет id`);
         }
 
-        module.install?.(app);
+        app.$addModuleLocaleMessages(module.locales);
+
+        if (module.install) {
+          await module.install(app);
+          console.debug(`[Module: ${module.id}] install() вызван.`);
+        }
 
         return {
           id: module.id,

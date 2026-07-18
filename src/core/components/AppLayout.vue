@@ -58,7 +58,7 @@
 </template>
 
 <script setup lang="ts">
-import { setLocale, type SupportedLocale, supportedLocales } from '@/plugins';
+import { setLocale, type SupportedLocale, supportedLocales } from '../plugins';
 import { storeToRefs } from 'pinia';
 import { computed } from 'vue';
 import { useI18n } from 'vue-i18n';

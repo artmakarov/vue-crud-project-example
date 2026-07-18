@@ -1,4 +1,4 @@
-import { i18n } from '@/plugins';
+import { i18n } from '../plugins';
 
 export const validators = {
   required: (v: unknown): true | string =>

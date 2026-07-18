@@ -1,5 +1,5 @@
 import { ForbiddenPage, NotFoundPage } from '@/core';
-import { i18n } from '@/plugins';
+import { i18n } from '../plugins';
 import { watch } from 'vue';
 import {
   createRouter,

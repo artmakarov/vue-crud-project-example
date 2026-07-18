@@ -50,7 +50,7 @@
 
 <script setup lang="ts">
 import type { ApplicantFormDataType, IApplicant } from '../types';
-import { validators } from '@/shared';
+import { validators } from '@/core';
 import { computed, ref, watch } from 'vue';
 import { useI18n } from 'vue-i18n';
 import { useApplicantStatuses } from '../composables';

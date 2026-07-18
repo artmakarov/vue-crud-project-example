@@ -89,7 +89,8 @@
 
 <script setup lang="ts">
 import type { ApplicantStatusType, IApplicant } from '../types';
-import { EmptyState, formatDate, ISortOption } from '@/shared';
+import { formatDate } from '@/core';
+import { EmptyState, ISortOption } from '@/shared';
 import { computed } from 'vue';
 import { useI18n } from 'vue-i18n';
 import { useApplicantStatuses } from '../composables';

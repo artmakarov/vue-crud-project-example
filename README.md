@@ -42,6 +42,7 @@ npm run dev
 - модули автоматически обнаруживаются через `import.meta.glob('@/modules/*/index.ts')`
 - каждый модуль реализует контракт `IModule`:
   - `id`
+  - `locales`
   - `getRoutes()`
   - `getNavItems()`
   - `install?(app)`
@@ -58,15 +59,26 @@ src/
 │   │   ├── App.vue                         # Корневой компонент приложения
 │   │   ├── AppLayout.vue                   # Layout с шапкой и сайдбаром
 │   │   └── AppSnackbar.vue                 # Глобальный snackbar
+│   ├── locales/                            # Файлы локализации приложения
+│   │   ├── ru.json
+│   │   └── en.json
 │   ├── pages/
 │   │   ├── ForbiddenPage.vue               # Страница ошибки 403
 │   │   └── NotFoundPage.vue                # Страница ошибки 404
+│   ├── plugins/                            # Плагины
+│   │   ├── vuetify.ts                      # Конфигурация Vuetify
+│   │   └── i18n.ts                         # Конфигурация Vue I18n
+│   ├── router/                             # Маршрутизация
+│   │   └── index.ts                        # Vue Router + Error handlers + registerRoutes(...)
 │   ├── stores/
 │   │   ├── globalStore.ts                  # Глобальный store (тема, сайдбар)
 │   │   ├── modulesStore.ts                 # Pinia store для модулей приложения
 │   │   └── snackbarStore.ts                # Pinia store для уведомлений
-│   └── types/
-│       └── module.ts                       # Модель модуля приложения
+│   ├── types/
+│   │   └── module.ts                       # Модель модуля приложения
+│   └── utils/
+│       ├── validators.ts                   # Правила валидации
+│       └── formatters.ts                   # Форматирование дат/статусов
 │
 ├── modules/                                # Бизнес-фичи
 │   └── applicants/                         # Модуль «Справочник кандидатов»
@@ -107,12 +119,9 @@ src/
 │   │   └── EmptyState.vue                  # Универсальное пустое состояние
 │   ├── composables/
 │   │   └── useDebounce.ts                  # Debounce composable
-│   ├── types/
-│   │   ├── responses.ts                    # TypeScript типы (DTO, API responses)
-│   │   └── sorting.ts                      # Типы сортировки
-│   └── utils/
-│       ├── validators.ts                   # Правила валидации
-│       └── formatters.ts                   # Форматирование дат/статусов
+│   └── types/
+│       ├── responses.ts                    # TypeScript типы (DTO, API responses)
+│       └── sorting.ts                      # Типы сортировки
 │
 ├── mocks/                                  # MSW mock-сервис (только DEV)
 │   ├── db/
@@ -121,17 +130,6 @@ src/
 │   │   ├── applicants.ts                   # Обработчики API кандидатов
 │   │   └── index.ts                        # Агрегатор handlers
 │   └── browser.ts                          # Инициализация Service Worker
-│
-├── locales/                                # Файлы локализации приложения
-│   ├── ru.json                             # Русская локализация
-│   └── en.json                             # Английская локализация
-│
-├── plugins/                                # Плагины
-│   ├── vuetify.ts                          # Конфигурация Vuetify
-│   └── i18n.ts                             # Конфигурация Vue I18n
-│
-├── router/                                 # Маршрутизация
-│   └── index.ts                            # Vue Router + Error handlers + registerRoutes(...)
 │
 └── main.ts                                 # Точка входа приложения
 ```

@@ -3,6 +3,7 @@ import type {
   RouteLocationAsRelativeGeneric,
   RouteRecordRaw,
 } from 'vue-router';
+import { SupportedLocale } from '../plugins';
 
 export interface INavItem {
   route: string | RouteLocationAsRelativeGeneric;
@@ -12,9 +13,10 @@ export interface INavItem {
 
 export interface IModule {
   id: string;
+  locales: Record<SupportedLocale, Record<string, unknown>>;
   getRoutes: () => RouteRecordRaw[] | Promise<RouteRecordRaw[]>;
   getNavItems: () => INavItem[];
-  install?: (app: App) => void;
+  install?: (app: App) => Promise<void> | void;
 }
 
 export interface ILoadedModule {

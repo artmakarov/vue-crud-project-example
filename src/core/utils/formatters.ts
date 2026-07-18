@@ -1,4 +1,4 @@
-import { i18n, SupportedLocale } from '@/plugins';
+import { i18n, SupportedLocale } from '../plugins';
 import { MaybeRefOrGetter, toValue } from 'vue';
 
 export function formatDate(

@@ -1,8 +1,13 @@
-import { App, useModulesStore } from '@/core';
+import {
+  App,
+  i18nCustomPlugin,
+  registerRoutes,
+  router,
+  useModulesStore,
+  vuetifyCustomPlugin,
+} from '@/core';
 import { createPinia } from 'pinia';
 import { createApp } from 'vue';
-import { i18nCustomPlugin, vuetifyCustomPlugin } from './plugins';
-import { registerRoutes, router } from './router';
 
 async function enableMocking(): Promise<void> {
   const { worker } = await import('./mocks/browser');

@@ -11,6 +11,7 @@ export * from './utils';
 
 const applicantsModule: IModule = {
   id: 'applicants',
+  locales: { ru, en },
   getRoutes: async () => {
     // Динамический импорт — ленивая загрузка
     const { routes } = await import('./routes');
@@ -23,8 +24,8 @@ const applicantsModule: IModule = {
       icon: 'mdi-account-group',
     },
   ],
-  install: (app) => {
-    app.$addModuleLocaleMessages({ ru, en });
+  install: async () => {
+    // Опционально: регистрация плагинов, директив и т.д.
   },
 };
 
