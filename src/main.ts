@@ -11,13 +11,19 @@ import { createApp } from 'vue';
 
 async function enableMocking(): Promise<void> {
   const { worker } = await import('./mocks/browser');
-  await worker.start({ onUnhandledRequest: 'bypass' });
+
+  await worker.start({
+    onUnhandledRequest: 'bypass',
+    serviceWorker: {
+      url: `${import.meta.env.BASE_URL}mockServiceWorker.js`,
+    },
+  });
 }
 
 async function bootstrap(): Promise<void> {
-  if (import.meta.env.DEV) {
-    await enableMocking();
-  }
+  // if (import.meta.env.DEV) {
+  await enableMocking();
+  // }
 
   const app = createApp(App);
 
